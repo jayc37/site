@@ -1,9 +1,0 @@
-flask
-Flask
-flask_restful
-flask-cors
-python-dotenv
-pandas
-numpy
-requests
-wheel
