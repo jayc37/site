@@ -6,6 +6,7 @@ import json
 import os.path
 import logging
 from Get_dataJson import sendRequest
+from formatdatatable import format
 # ------------------------------------------------------------------------------
 app = Flask(__name__)
 # for develop
@@ -24,11 +25,12 @@ def home():
     return render_template("index.html")
     
 @app.route("/getdata")
-def get_bot_response():
+def getresponse():
     try:
         URL = "http://data.fixer.io/api/latest?access_key=fe3a9b3f9ac173a3e51d8ea22951cf95"
-        dataSet = sendRequest(URL)
-        return jsonify(dataSet)
+        sr = sendRequest(URL)
+        dataSet = sr.dataSet
+        return render_template("index.html",dataSet = dataSet)
     except Exception as e:
             logging.error('<file app.py>:' + str(e))
 if __name__ == "__main__":

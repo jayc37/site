@@ -2,13 +2,17 @@ import requests
 from datetime import datetime
 import re
 from analize import analize
+from formatdatatable import format
 class sendRequest:
-    def __init__(self,APIurl):
-        self.url = APIurl
+    def __init__(self,URL):
+        self.url = URL
         self._head = {}
         self._content = {}
+        self.dataSet = {}
+        self.index = []
         self.Makerequest()
-    
+
+
     def Makerequest(self):
         try:
             URL = self.url
@@ -17,8 +21,9 @@ class sendRequest:
             if var:
                 _h = self._head
                 _c = self._content
-                dataSet = analize(_c)
-                return dataSet
+                index,dataSet = analize(_c)
+                data = format(index,dataSet)
+                self.dataSet = data
             else:
                 writelog("GET Request failed !")
         except Exception as e:
